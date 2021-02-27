@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import React from 'react';
 
 export const CardWrapper = styled.div`
     display: flex;
@@ -14,31 +13,33 @@ export const CardWrapper = styled.div`
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 `;
 
+export const CardLogo = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+
 export const CardNumber = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     font-family: 'Kredit', sans-serif;
-    font-size: 45px;
+    font-size: 36px;
 `;
 
 export const CardInfo = styled.div`
     display: flex;
     justify-content: space-between;
-
     font-family: 'Open Sans', sans-serif;
     font-size: 25px;
 `;
 
-export const CardInfoLabel = styled.div`
-    font-size: 14px;
-`;
+export const CardHolder = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
 
 export const CardInfoExpiry = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 `;
-
-export const Logo = (props: any) => {
-    return <div>{props}</div>;
-};

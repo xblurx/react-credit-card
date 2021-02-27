@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from '@chakra-ui/react';
 import {
-    CardInfoExpiry,
-    CardInfoLabel,
+    CardHolder,
     CardInfo,
+    CardInfoExpiry,
+    CardLogo,
     CardNumber,
     CardWrapper,
 } from 'styled/CreditCardSC';
@@ -14,21 +16,27 @@ interface CCPropType {
     expires: string;
 }
 
-const Logo = (props: any) => {
-    return <div>{props.img}</div>;
+interface LogoPropType {
+    logo: any;
+}
+
+const Logo = (props: LogoPropType) => {
+    return <CardLogo>{props.logo}</CardLogo>;
 };
 
 export const CardDisplay = (props: CCPropType) => {
     return (
         <CardWrapper>
-            <Logo src={props.logo} />
+            <Logo logo={props.logo} />
             <CardNumber>{props.number}</CardNumber>
             <CardInfo>
-                <CardInfoLabel>CARDHOLDER'S NAME</CardInfoLabel>
-                <div>{props.name}</div>
+                <CardHolder>
+                    <Text fontSize="md">CARDHOLDER</Text>
+                    <Text fontSize="lg">{props.name}</Text>
+                </CardHolder>
                 <CardInfoExpiry>
-                    <CardInfoLabel>VALID UP TO</CardInfoLabel>
-                    <div>{props.expires}</div>
+                    <Text fontSize="md">VALID UP TO</Text>
+                    <Text fontSize="lg">{props.expires}</Text>
                 </CardInfoExpiry>
             </CardInfo>
         </CardWrapper>
