@@ -16,11 +16,11 @@ export const CardWrapper = styled.div`
 export const CardLogo = styled.div`
     display: flex;
     justify-content: flex-end;
-`
+`;
 
 export const CardNumber = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     font-family: 'Kredit', sans-serif;
     font-size: 36px;
 `;
@@ -36,7 +36,7 @@ export const CardHolder = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-`
+`;
 
 export const CardInfoExpiry = styled.div`
     display: flex;

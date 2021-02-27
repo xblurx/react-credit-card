@@ -31,11 +31,10 @@ export const CardDisplay = (props: CCPropType) => {
             <CardNumber>{props.number}</CardNumber>
             <CardInfo>
                 <CardHolder>
-                    <Text fontSize="md">CARDHOLDER</Text>
-                    <Text fontSize="lg">{props.name}</Text>
+                    <Text fontSize="xl  ">{props.name}</Text>
                 </CardHolder>
                 <CardInfoExpiry>
-                    <Text fontSize="md">VALID UP TO</Text>
+                    <Text fontSize="xs">VALID THRU</Text>
                     <Text fontSize="lg">{props.expires}</Text>
                 </CardInfoExpiry>
             </CardInfo>

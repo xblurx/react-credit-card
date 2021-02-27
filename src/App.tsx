@@ -6,7 +6,6 @@ import './App.css';
 
 export const App = () => (
     <ChakraProvider>
-        {/*<Fonts />*/}
         <Flex width="full" align="center" justifyContent="center">
             <Box textAlign="center" fontSize="xl">
                 <Grid minH="100vh" p={3}>
@@ -14,7 +13,7 @@ export const App = () => (
                     <CardDisplay
                         logo="logo"
                         number={'4276 4200 3611 2430'}
-                        expires={'02/2077'}
+                        expires={'02/77'}
                         name="AVRIL LAVIGNE"
                     />
                     <CardForm />
