@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+@font-face {
+    font-family: 'Kredit';
+    src:  url('common/fonts/kreditFront.woff') format('woff');
+}
+
+.card__number {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.card__num {
+    font-family: 'Kredit', sans-serif;
+}
