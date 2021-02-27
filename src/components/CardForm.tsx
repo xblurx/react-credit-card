@@ -31,69 +31,62 @@ export const CardForm = () => {
     };
 
     return (
-        <Flex width="full" align="center" justifyContent="center">
-            <Box
-                padding="20px 70px 20px"
-                width="500px"
-                maxWidth="700px"
-                borderWidth={1}
-                borderRadius={8}
-                boxShadow="lg"
-            >
-                <Box my={10} textAlign="left">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl isInvalid={errors.name}>
-                            <Input
-                                variant="flushed"
-                                name="name"
-                                placeholder="Имя"
-                                ref={register({ validate: validateField })}
-                                focusBorderColor="#B794F4"
-                            />
-                            <FormErrorMessage>
-                                {errors.name && errors.name.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl mt={6} isInvalid={errors.surname}>
-                            <Input
-                                variant="flushed"
-                                name="surname"
-                                placeholder="Фамилия"
-                                ref={register({ validate: validateField })}
-                                focusBorderColor="#B794F4"
-                            />
-                            <FormErrorMessage>
-                                {errors.surname && errors.surname.message}
-                            </FormErrorMessage>
-                        </FormControl>
+        <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
+            <Box my={10} textAlign="left">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl isInvalid={errors.name}>
+                        <Input
+                            variant="flushed"
+                            name="name"
+                            placeholder="Имя"
+                            ref={register({ validate: validateField })}
+                            focusBorderColor="#B794F4"
+                        />
+                        <FormErrorMessage>
+                            {errors.name && errors.name.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                    <FormControl mt={6} isInvalid={errors.surname}>
+                        <Input
+                            variant="flushed"
+                            name="surname"
+                            placeholder="Фамилия"
+                            ref={register({ validate: validateField })}
+                            focusBorderColor="#B794F4"
+                        />
+                        <FormErrorMessage>
+                            {errors.surname && errors.surname.message}
+                        </FormErrorMessage>
+                    </FormControl>
 
-                        <FormControl mt={6} isInvalid={errors.email}>
-                            <Input
-                                variant="flushed"
-                                type="email"
-                                name="email"
-                                placeholder="test@test.com"
-                                ref={register({ validate: validateField })}
-                                focusBorderColor="#B794F4"
-                            />
-                            <FormErrorMessage>
-                                {errors.email && errors.email.message}
-                            </FormErrorMessage>
-                        </FormControl>
-
+                    <FormControl mt={6} isInvalid={errors.email}>
+                        <Input
+                            variant="flushed"
+                            type="email"
+                            name="email"
+                            placeholder="test@test.com"
+                            ref={register({ validate: validateField })}
+                            focusBorderColor="#B794F4"
+                        />
+                        <FormErrorMessage>
+                            {errors.email && errors.email.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                    <Flex align="center" justifyContent='center'>
                         <Button
                             colorScheme="purple"
                             variant="outline"
                             type="submit"
                             borderRadius="50px"
-                            isFullWidth={true}
+                            width="150px"
+                            // isFullWidth={true}
                             mt={10}
                         >
                             Submit
                         </Button>
-                    </form>
-                </Box>
+                    </Flex>
+                </form>
             </Box>
-        </Flex>
+        </Box>
     );
 };

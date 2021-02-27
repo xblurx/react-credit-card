@@ -6,19 +6,17 @@ import './App.css';
 
 export const App = () => (
     <ChakraProvider>
-        <Flex width="full" align="center" justifyContent="center">
-            <Box textAlign="center" fontSize="xl">
-                <Grid minH="100vh" p={3}>
-                    <ColorModeSwitcher justifySelf="flex-end" />
-                    <CardDisplay
-                        logo="logo"
-                        number={'4276 4200 3611 2430'}
-                        expires={'02/77'}
-                        name="AVRIL LAVIGNE"
-                    />
-                    <CardForm />
-                </Grid>
-            </Box>
+        <Box textAlign="right" mr={6}>
+            <ColorModeSwitcher justifySelf="flex-end" />
+        </Box>
+        <Flex width="full" direction='column' align="center" justifyContent="center">
+            <CardDisplay
+                logo="logo"
+                number={'4276 4200 3611 2430'}
+                expires={'02/77'}
+                name="AVRIL LAVIGNE"
+            />
+            <CardForm />
         </Flex>
     </ChakraProvider>
 );

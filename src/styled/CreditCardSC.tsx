@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
     width: 400px;
     height: 250px;
     padding: 25px;
