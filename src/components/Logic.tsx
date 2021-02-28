@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { CardDisplay } from './CardDisplay';
-import { CardForm } from './CardForm';
+import { CardForm, inputT } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
-import { formatString } from '../common/utils/utils';
+import { formatString } from 'common/utils/utils';
 
 export const Logic = () => {
     const [number, setNumber] = useState('#### #### #### ####');
     const [name, setName] = useState('CARDHOLDER');
-    const handleChangeNumber = (value: string) => {
-        const formattedNumber = formatString(value);
-        if (formattedNumber) {
-            setNumber(formattedNumber);
+    const handleChangeNumber = (value: inputT) => {
+        if (value ) {
+            const formattedNumber = formatString(value);
+            if (formattedNumber) {
+                setNumber(formattedNumber);
+            }
         }
     };
+    const handleChangeName = (value: inputT) => {
+        if (value ) {
+            console.log(`name: ${value}`)
+            setName(value.toUpperCase());
+        }
+    };
+
     useEffect(() => {
-        console.log(number)
-    })
+        console.log(number);
+    }, [number]);
+
     return (
         <>
             <CardDisplay
@@ -24,7 +34,10 @@ export const Logic = () => {
                 expires={'02/77'}
                 name={name}
             />
-            <CardForm handleChangeNumber={handleChangeNumber} />
+            <CardForm
+                handleChangeNumber={handleChangeNumber}
+                handleChangeName={handleChangeName}
+            />
         </>
     );
 };

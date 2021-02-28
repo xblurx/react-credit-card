@@ -10,24 +10,26 @@ import {
     Spacer,
 } from '@chakra-ui/react';
 
+export type inputT = string | false;
+
 interface PropTypes {
-    handleChangeNumber: (value: any) => void;
+    handleChangeNumber: (value: inputT) => void;
+    handleChangeName: (value: inputT) => void;
 }
 export const CardForm = (props: PropTypes) => {
-    const {
-        handleSubmit,
-        errors,
-        register,
-        control,
-        reset,
-        formState,
-    } = useForm({
+    const { handleSubmit, errors, register, control, formState } = useForm({
         mode: 'onChange',
         reValidateMode: 'onSubmit',
     });
-    const watchNumber = useWatch({
+    const watchNumber = useWatch<inputT>({
         control,
         name: 'number',
+        defaultValue: false,
+    });
+
+    const watchName = useWatch<inputT>({
+        control,
+        name: 'name',
         defaultValue: false,
     });
 
@@ -55,6 +57,12 @@ export const CardForm = (props: PropTypes) => {
             props.handleChangeNumber(watchNumber);
         }
     }, [watchNumber]);
+
+    useEffect(() => {
+        if (formState.dirtyFields.name) {
+            props.handleChangeName(watchName);
+        }
+    }, [watchName]);
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
             <Box my={10} textAlign="left">
