@@ -1,36 +1,60 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import {
     Box,
     Button,
-    Checkbox,
     Flex,
     FormControl,
     FormErrorMessage,
-    Image,
     Input,
-    InputGroup,
     Spacer,
-    Text,
-    useColorMode,
-    useToast,
 } from '@chakra-ui/react';
 
-export const CardForm = () => {
-    const { handleSubmit, errors, register, reset, formState } = useForm({
+interface PropTypes {
+    handleChangeNumber: (value: any) => void;
+}
+export const CardForm = (props: PropTypes) => {
+    const {
+        handleSubmit,
+        errors,
+        register,
+        control,
+        reset,
+        formState,
+    } = useForm({
         mode: 'onChange',
+        reValidateMode: 'onSubmit',
+    });
+    const watchNumber = useWatch({
+        control,
+        name: 'number',
+        defaultValue: false,
     });
 
     const onSubmit = (values: any) => {
         console.log(values);
     };
 
-    const validateField = (value: any) => {
+    const validateField = (value: string) => {
         if (!value) {
             return 'Please, fill in the field';
         }
     };
 
+    const validateNumber = (value: string) => {
+        const strippedValue = value.replace(/\s/g, '');
+        if (!/^\d*$/.test(strippedValue)) {
+            return 'Only digits accepted';
+        } else if (strippedValue.length > 16) {
+            return 'Card number must not exceed 16 digits';
+        }
+    };
+
+    useEffect(() => {
+        if (formState.dirtyFields.number) {
+            props.handleChangeNumber(watchNumber);
+        }
+    }, [watchNumber]);
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
             <Box my={10} textAlign="left">
@@ -40,8 +64,9 @@ export const CardForm = () => {
                             variant="flushed"
                             name="number"
                             placeholder="Card number"
-                            ref={register({ validate: validateField })}
+                            ref={register({ validate: validateNumber })}
                             focusBorderColor="#B794F4"
+                            // onKeyUp={() => validateNumber(formState.dirtyFields.number)}
                         />
                         <FormErrorMessage>
                             {errors.number && errors.number.message}

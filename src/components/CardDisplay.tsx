@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@chakra-ui/react';
+import { Image, Text } from '@chakra-ui/react';
 import {
     CardHolder,
     CardInfo,
@@ -21,7 +21,11 @@ interface LogoPropType {
 }
 
 const Logo = (props: LogoPropType) => {
-    return <CardLogo>{props.logo}</CardLogo>;
+    return (
+        <CardLogo>
+            <Image src={props.logo} alt="Card logo" boxSize="80px" />
+        </CardLogo>
+    );
 };
 
 export const CardDisplay = (props: CCPropType) => {
@@ -31,7 +35,7 @@ export const CardDisplay = (props: CCPropType) => {
             <CardNumber>{props.number}</CardNumber>
             <CardInfo>
                 <CardHolder>
-                    <Text fontSize="xl  ">{props.name}</Text>
+                    <Text fontSize="xl">{props.name}</Text>
                 </CardHolder>
                 <CardInfoExpiry>
                     <Text fontSize="xs">VALID THRU</Text>
