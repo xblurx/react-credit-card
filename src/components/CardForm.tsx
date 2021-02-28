@@ -10,6 +10,7 @@ import {
     Image,
     Input,
     InputGroup,
+    Spacer,
     Text,
     useColorMode,
     useToast,
@@ -26,7 +27,7 @@ export const CardForm = () => {
 
     const validateField = (value: any) => {
         if (!value) {
-            return 'Please, fill all fields';
+            return 'Please, fill in the field';
         }
     };
 
@@ -34,11 +35,23 @@ export const CardForm = () => {
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
             <Box my={10} textAlign="left">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl isInvalid={errors.name}>
+                    <FormControl isInvalid={errors.number}>
+                        <Input
+                            variant="flushed"
+                            name="number"
+                            placeholder="Card number"
+                            ref={register({ validate: validateField })}
+                            focusBorderColor="#B794F4"
+                        />
+                        <FormErrorMessage>
+                            {errors.number && errors.number.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                    <FormControl mt={6} isInvalid={errors.name}>
                         <Input
                             variant="flushed"
                             name="name"
-                            placeholder="Имя"
+                            placeholder="Cardholder name"
                             ref={register({ validate: validateField })}
                             focusBorderColor="#B794F4"
                         />
@@ -46,40 +59,46 @@ export const CardForm = () => {
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
-                    <FormControl mt={6} isInvalid={errors.surname}>
-                        <Input
-                            variant="flushed"
-                            name="surname"
-                            placeholder="Фамилия"
-                            ref={register({ validate: validateField })}
-                            focusBorderColor="#B794F4"
-                        />
-                        <FormErrorMessage>
-                            {errors.surname && errors.surname.message}
-                        </FormErrorMessage>
-                    </FormControl>
-
-                    <FormControl mt={6} isInvalid={errors.email}>
-                        <Input
-                            variant="flushed"
-                            type="email"
-                            name="email"
-                            placeholder="test@test.com"
-                            ref={register({ validate: validateField })}
-                            focusBorderColor="#B794F4"
-                        />
-                        <FormErrorMessage>
-                            {errors.email && errors.email.message}
-                        </FormErrorMessage>
-                    </FormControl>
-                    <Flex align="center" justifyContent='center'>
+                    <Flex>
+                        <Box w="170px" h="10">
+                            <FormControl mt={6} isInvalid={errors.expiration}>
+                                <Input
+                                    variant="flushed"
+                                    name="expiration"
+                                    placeholder="Expiration date"
+                                    ref={register({ validate: validateField })}
+                                    focusBorderColor="#B794F4"
+                                />
+                                <FormErrorMessage>
+                                    {errors.expiration &&
+                                        errors.expiration.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                        </Box>
+                        <Spacer />
+                        <Box w="170px" h="10">
+                            <FormControl mt={6} isInvalid={errors.cvv}>
+                                <Input
+                                    variant="flushed"
+                                    name="cvv"
+                                    placeholder="CVV"
+                                    ref={register({ validate: validateField })}
+                                    focusBorderColor="#B794F4"
+                                />
+                                <FormErrorMessage>
+                                    {errors.cvv && errors.cvv.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                        </Box>
+                    </Flex>
+                    <Spacer />
+                    <Flex align="center" justifyContent="center" mt={5}>
                         <Button
                             colorScheme="purple"
                             variant="outline"
                             type="submit"
                             borderRadius="50px"
                             width="150px"
-                            // isFullWidth={true}
                             mt={10}
                         >
                             Submit
