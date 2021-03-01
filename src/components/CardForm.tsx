@@ -10,11 +10,13 @@ import {
     Spacer,
 } from '@chakra-ui/react';
 
-export type inputT = string | false;
+export type inputT = string | null;
 
 interface PropTypes {
     handleChangeNumber: (value: inputT) => void;
     handleChangeName: (value: inputT) => void;
+    setFormTouched: (value: boolean) => void;
+    formTouched: boolean;
 }
 export const CardForm = (props: PropTypes) => {
     const { handleSubmit, errors, register, control, formState } = useForm({
@@ -24,14 +26,19 @@ export const CardForm = (props: PropTypes) => {
     const watchNumber = useWatch<inputT>({
         control,
         name: 'number',
-        defaultValue: false,
+        defaultValue: null,
     });
-
     const watchName = useWatch<inputT>({
         control,
         name: 'name',
-        defaultValue: false,
+        defaultValue: null,
     });
+
+    const onFormFieldFocus = () => {
+        if (!props.formTouched) {
+            props.setFormTouched(true);
+        }
+    };
 
     const onSubmit = (values: any) => {
         console.log(values);
@@ -63,6 +70,7 @@ export const CardForm = (props: PropTypes) => {
             props.handleChangeName(watchName);
         }
     }, [watchName]);
+
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
             <Box my={10} textAlign="left">
@@ -74,7 +82,7 @@ export const CardForm = (props: PropTypes) => {
                             placeholder="Card number"
                             ref={register({ validate: validateNumber })}
                             focusBorderColor="#B794F4"
-                            // onKeyUp={() => validateNumber(formState.dirtyFields.number)}
+                            onFocus={onFormFieldFocus}
                         />
                         <FormErrorMessage>
                             {errors.number && errors.number.message}
@@ -87,6 +95,7 @@ export const CardForm = (props: PropTypes) => {
                             placeholder="Cardholder name"
                             ref={register({ validate: validateField })}
                             focusBorderColor="#B794F4"
+                            onFocus={onFormFieldFocus}
                         />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
@@ -101,6 +110,7 @@ export const CardForm = (props: PropTypes) => {
                                     placeholder="Expiration date"
                                     ref={register({ validate: validateField })}
                                     focusBorderColor="#B794F4"
+                                    onFocus={onFormFieldFocus}
                                 />
                                 <FormErrorMessage>
                                     {errors.expiration &&

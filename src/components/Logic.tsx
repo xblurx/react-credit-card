@@ -3,12 +3,20 @@ import { CardDisplay } from './CardDisplay';
 import { CardForm, inputT } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
 import { formatString } from 'common/utils/utils';
+import { useSpring, animated, config } from 'react-spring';
 
 export const Logic = () => {
     const [number, setNumber] = useState('#### #### #### ####');
     const [name, setName] = useState('CARDHOLDER');
+    const [formTouched, setFormTouched] = useState(false);
+    const animationStyle = useSpring({
+        transform: !formTouched ? 'translateY(-200px)' : 'translateY(0)',
+        opacity: formTouched ? 1 : 0,
+        config: config.stiff,
+    });
+
     const handleChangeNumber = (value: inputT) => {
-        if (value ) {
+        if (value !== null) {
             const formattedNumber = formatString(value);
             if (formattedNumber) {
                 setNumber(formattedNumber);
@@ -16,8 +24,8 @@ export const Logic = () => {
         }
     };
     const handleChangeName = (value: inputT) => {
-        if (value ) {
-            console.log(`name: ${value}`)
+        if (value) {
+            console.log(`name: ${value}`);
             setName(value.toUpperCase());
         }
     };
@@ -26,17 +34,25 @@ export const Logic = () => {
         console.log(number);
     }, [number]);
 
+    useEffect(() => {
+        console.log(formTouched);
+    }, [formTouched]);
+
     return (
         <>
-            <CardDisplay
-                logo={MasterCardLogo}
-                number={number}
-                expires={'02/77'}
-                name={name}
-            />
+            <animated.div style={animationStyle}>
+                <CardDisplay
+                    logo={MasterCardLogo}
+                    number={number}
+                    expires={'02/77'}
+                    name={name}
+                />
+            </animated.div>
             <CardForm
                 handleChangeNumber={handleChangeNumber}
                 handleChangeName={handleChangeName}
+                setFormTouched={setFormTouched}
+                formTouched={formTouched}
             />
         </>
     );
