@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -9,7 +10,14 @@ export const CardWrapper = styled.div`
     padding: 25px;
     border-radius: 15px;
     color: white;
-    background-image: linear-gradient(25deg, #0f509e, #1399cd);
+    background-image: linear-gradient(
+        to right bottom,
+        #fd696b,
+        #fa616e,
+        #f65871,
+        #f15075,
+        #ec4879
+    );
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 `;
 
@@ -41,5 +49,5 @@ export const CardHolder = styled.div`
 export const CardInfoExpiry = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
 `;

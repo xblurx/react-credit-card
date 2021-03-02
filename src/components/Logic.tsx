@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { CardDisplay } from './CardDisplay';
 import { CardForm, inputT } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
-import { formatString } from 'common/utils/utils';
-import { useSpring, animated, config } from 'react-spring';
+import { formatString } from 'common/utils';
+import { animated, config, useSpring } from 'react-spring';
+import { Card } from './Card';
 
 export type formTouchedT = 'notTouched' | 'front' | 'back';
 
 export const Logic = () => {
     const [number, setNumber] = useState('#### #### #### ####');
     const [name, setName] = useState('CARDHOLDER');
-    const [formTouched, setFormTouched] = useState<formTouchedT>('notTouched');
+    const [formState, setFormState] = useState<formTouchedT>('notTouched');
+
     const animationStyle = useSpring({
         transform:
-            formTouched === 'notTouched'
-                ? 'translateY(-200px)'
-                : 'translateY(0)',
-        opacity: formTouched !== 'notTouched' ? 1 : 0,
+            formState === 'notTouched' ? 'translateY(-200px)' : 'translateY(0)',
+        opacity: formState !== 'notTouched' ? 1 : 0,
         config: config.stiff,
     });
 
@@ -40,24 +39,28 @@ export const Logic = () => {
     }, [number]);
 
     useEffect(() => {
-        console.log(formTouched);
-    }, [formTouched]);
+        console.log(formState);
+    }, [formState]);
 
     return (
         <>
-            <animated.div style={animationStyle}>
-                <CardDisplay
-                    logo={MasterCardLogo}
-                    number={number}
-                    expires={'02/77'}
-                    name={name}
-                />
-            </animated.div>
+            <div>
+                <animated.div style={animationStyle}>
+                    <Card
+                        logo={MasterCardLogo}
+                        number={number}
+                        name={name}
+                        expires="02/77"
+                        cvv={451}
+                        cardSide={formState}
+                    />
+                </animated.div>
+            </div>
             <CardForm
                 handleChangeNumber={handleChangeNumber}
                 handleChangeName={handleChangeName}
-                setFormTouched={setFormTouched}
-                formTouched={formTouched}
+                setFormTouched={setFormState}
+                formTouched={formState}
             />
         </>
     );

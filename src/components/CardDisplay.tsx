@@ -8,17 +8,7 @@ import {
     CardNumber,
     CardWrapper,
 } from 'styled/CreditCardSC';
-
-interface CCPropType {
-    logo: any;
-    number: string;
-    name: string;
-    expires: string;
-}
-
-interface LogoPropType {
-    logo: any;
-}
+import { CCPropType, LogoPropType } from './interfaces';
 
 const Logo = (props: LogoPropType) => {
     return (

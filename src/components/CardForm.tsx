@@ -41,6 +41,12 @@ export const CardForm = (props: PropTypes) => {
         }
     };
 
+    const onCvvFieldFocus = () => {
+        if (props.formTouched !== 'back') {
+            props.setFormTouched('back');
+        }
+    };
+
     const onSubmit = (values: any) => {
         console.log(values);
     };
@@ -128,6 +134,7 @@ export const CardForm = (props: PropTypes) => {
                                     placeholder="CVV"
                                     ref={register({ validate: validateField })}
                                     focusBorderColor="#B794F4"
+                                    onFocus={onCvvFieldFocus}
                                 />
                                 <FormErrorMessage>
                                     {errors.cvv && errors.cvv.message}
