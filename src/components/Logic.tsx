@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CardForm, inputT } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
 import { formatString } from 'common/utils';
-import { animated, config, useSpring } from 'react-spring';
+import { animated as a, config, useSpring } from 'react-spring';
 import { Card } from './Card';
 
 export type formTouchedT = 'notTouched' | 'front' | 'back';
@@ -16,7 +16,7 @@ export const Logic = () => {
         transform:
             formState === 'notTouched' ? 'translateY(-200px)' : 'translateY(0)',
         opacity: formState !== 'notTouched' ? 1 : 0,
-        config: config.stiff,
+        config: { mass: 5, tension: 500, friction: 80 },
     });
 
     const handleChangeNumber = (value: inputT) => {
@@ -28,7 +28,7 @@ export const Logic = () => {
         }
     };
     const handleChangeName = (value: inputT) => {
-        if (value) {
+        if (value !== null) {
             console.log(`name: ${value}`);
             setName(value.toUpperCase());
         }
@@ -45,7 +45,7 @@ export const Logic = () => {
     return (
         <>
             <div>
-                <animated.div style={animationStyle}>
+                <a.div style={animationStyle}>
                     <Card
                         logo={MasterCardLogo}
                         number={number}
@@ -54,7 +54,7 @@ export const Logic = () => {
                         cvv={451}
                         cardSide={formState}
                     />
-                </animated.div>
+                </a.div>
             </div>
             <CardForm
                 handleChangeNumber={handleChangeNumber}

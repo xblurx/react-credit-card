@@ -1,26 +1,22 @@
 import React, { useEffect } from 'react';
-import { animated, config, useSpring } from 'react-spring';
+import { animated as a, config, useSpring } from 'react-spring';
 import { CardDisplay } from './CardDisplay';
 import { BackCardDisplay } from './BackCardDisplay';
 import { CCPropType } from './interfaces';
+import { GlobalCardWrapper } from '../styled/CreditCardSC';
 
 export const Card = (props: CCPropType) => {
     const { logo, number, name, expires, cvv, cardSide } = props;
     const flipped = cardSide === 'back';
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
-        transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
-        // config: config.gentle,
+        transform: `perspective(800px) rotateY(${flipped ? 180 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
     });
-    useEffect(() => {
-        console.log(`Card: cardside: ${cardSide}`);
-        console.log(`Card: flipped: ${flipped}`);
-    }, [cardSide]);
 
     return (
-        <>
-            <animated.div
+        <GlobalCardWrapper>
+            <a.div
                 style={{
                     opacity: opacity.interpolate((o: any) => 1 - o),
                     transform,
@@ -34,8 +30,8 @@ export const Card = (props: CCPropType) => {
                     cvv={cvv}
                     cardSide={cardSide}
                 />
-            </animated.div>
-            <animated.div
+            </a.div>
+            <a.div
                 style={{
                     opacity,
                     transform: transform.interpolate(
@@ -44,7 +40,7 @@ export const Card = (props: CCPropType) => {
                 }}
             >
                 <BackCardDisplay />
-            </animated.div>
-        </>
+            </a.div>
+        </GlobalCardWrapper>
     );
 };

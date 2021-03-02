@@ -51,3 +51,7 @@ export const CardInfoExpiry = styled.div`
     flex-direction: column;
     align-items: center;
 `;
+
+export const GlobalCardWrapper = styled.div`
+    perspective: 800px;
+`;
