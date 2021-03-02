@@ -9,14 +9,15 @@ import {
     Input,
     Spacer,
 } from '@chakra-ui/react';
+import { formTouchedT } from './Logic';
 
 export type inputT = string | null;
 
 interface PropTypes {
     handleChangeNumber: (value: inputT) => void;
     handleChangeName: (value: inputT) => void;
-    setFormTouched: (value: boolean) => void;
-    formTouched: boolean;
+    setFormTouched: (value: formTouchedT) => void;
+    formTouched: formTouchedT;
 }
 export const CardForm = (props: PropTypes) => {
     const { handleSubmit, errors, register, control, formState } = useForm({
@@ -35,8 +36,8 @@ export const CardForm = (props: PropTypes) => {
     });
 
     const onFormFieldFocus = () => {
-        if (!props.formTouched) {
-            props.setFormTouched(true);
+        if (props.formTouched !== 'front') {
+            props.setFormTouched('front');
         }
     };
 
@@ -45,8 +46,8 @@ export const CardForm = (props: PropTypes) => {
     };
 
     const validateField = (value: string) => {
-        if (!value) {
-            return 'Please, fill in the field';
+        if (!/^[a-zA-Z\s]+$/.test(value)) {
+            return 'Only alphanumeric characters accepted';
         }
     };
 
