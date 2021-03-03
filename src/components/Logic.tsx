@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { CardForm, inputT } from './CardForm';
+import { CardForm } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
 import { formatString } from 'common/utils';
 import { animated as a, config, useSpring } from 'react-spring';
 import { Card } from './Card';
+import { inputT } from './interfaces';
 
 export type formTouchedT = 'notTouched' | 'front' | 'back';
 
 export const Logic = () => {
     const [number, setNumber] = useState('#### #### #### ####');
     const [name, setName] = useState('CARDHOLDER');
+    const [expires, setExpires] = useState('03/77');
+    const [cvv, setCvv] = useState('***');
     const [formState, setFormState] = useState<formTouchedT>('notTouched');
 
     const animationStyle = useSpring({
@@ -29,18 +32,23 @@ export const Logic = () => {
     };
     const handleChangeName = (value: inputT) => {
         if (value !== null) {
-            console.log(`name: ${value}`);
             setName(value.toUpperCase());
+        }
+    };
+    const handleChangeExpires = (value: inputT) => {
+        if (value !== null) {
+            setExpires(value);
+        }
+    };
+    const handleChangeCvv = (value: inputT) => {
+        if (value !== null) {
+            setCvv(value);
         }
     };
 
     useEffect(() => {
         console.log(number);
     }, [number]);
-
-    useEffect(() => {
-        console.log(formState);
-    }, [formState]);
 
     return (
         <>
@@ -50,8 +58,8 @@ export const Logic = () => {
                         logo={MasterCardLogo}
                         number={number}
                         name={name}
-                        expires="02/77"
-                        cvv={451}
+                        expires={expires}
+                        cvv={cvv}
                         cardSide={formState}
                     />
                 </a.div>
@@ -59,6 +67,8 @@ export const Logic = () => {
             <CardForm
                 handleChangeNumber={handleChangeNumber}
                 handleChangeName={handleChangeName}
+                handleChangeExpires={handleChangeExpires}
+                handleChangeCvv={handleChangeCvv}
                 setFormTouched={setFormState}
                 formTouched={formState}
             />

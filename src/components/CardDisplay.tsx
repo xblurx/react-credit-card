@@ -18,7 +18,7 @@ const Logo = (props: LogoPropType) => {
     );
 };
 
-export const CardDisplay = (props: CCPropType) => {
+export const CardDisplay = (props: Omit<CCPropType, 'cvv'>) => {
     return (
         <CardWrapper>
             <Logo logo={props.logo} />

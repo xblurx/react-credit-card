@@ -5,10 +5,12 @@ export interface CCPropType {
     number: string;
     name: string;
     expires: string;
-    cvv: number;
+    cvv: string;
     cardSide: formTouchedT;
 }
 
 export interface LogoPropType {
     logo: any;
 }
+
+export type inputT = string | null;

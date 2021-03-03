@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { animated as a, config, useSpring } from 'react-spring';
+import React from 'react';
+import { animated as a, useSpring } from 'react-spring';
 import { CardDisplay } from './CardDisplay';
 import { BackCardDisplay } from './BackCardDisplay';
 import { CCPropType } from './interfaces';
-import { GlobalCardWrapper } from '../styled/CreditCardSC';
+import { GlobalCardWrapper } from 'styled/CreditCardSC';
 
 export const Card = (props: CCPropType) => {
     const { logo, number, name, expires, cvv, cardSide } = props;
@@ -27,7 +27,6 @@ export const Card = (props: CCPropType) => {
                     number={number}
                     name={name}
                     expires={expires}
-                    cvv={cvv}
                     cardSide={cardSide}
                 />
             </a.div>
@@ -39,7 +38,7 @@ export const Card = (props: CCPropType) => {
                     ),
                 }}
             >
-                <BackCardDisplay />
+                <BackCardDisplay cvv={cvv} />
             </a.div>
         </GlobalCardWrapper>
     );

@@ -36,7 +36,7 @@ export const CardBackContent = styled.div`
 `;
 
 export const CardSecret = styled.div`
-    padding: 15px 15px;
+    padding: 6px 19px;
     background-color: #fff;
     position: relative;
     &:before {
@@ -55,4 +55,11 @@ export const CardSecret = styled.div`
             #f9f9f9 10px
         );
     }
+`;
+
+export const CardBackCVV = styled.div`
+    color: #303030;
+    text-align: right;
+    margin: 0;
+    font-size: 16px;
 `;

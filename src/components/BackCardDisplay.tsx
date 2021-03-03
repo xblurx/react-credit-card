@@ -1,17 +1,18 @@
 import React from 'react';
-import {
-    BackCardWrapper,
-    CardBackContent,
-    CardBlackLine,
-    CardSecret,
-} from 'styled/CreditCardBackSC';
+import { BackCardWrapper, CardBackContent, CardBackCVV, CardBlackLine, CardSecret } from 'styled/CreditCardBackSC';
 
-export const BackCardDisplay = () => {
+interface PropTypes {
+    cvv: string;
+}
+
+export const BackCardDisplay = (props: PropTypes) => {
     return (
         <BackCardWrapper>
             <CardBlackLine />
             <CardBackContent>
-                <CardSecret />
+                <CardSecret>
+                    <CardBackCVV>{props.cvv}</CardBackCVV>
+                </CardSecret>
             </CardBackContent>
         </BackCardWrapper>
     );

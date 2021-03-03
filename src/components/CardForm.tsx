@@ -10,12 +10,13 @@ import {
     Spacer,
 } from '@chakra-ui/react';
 import { formTouchedT } from './Logic';
-
-export type inputT = string | null;
+import { inputT } from './interfaces';
 
 interface PropTypes {
     handleChangeNumber: (value: inputT) => void;
     handleChangeName: (value: inputT) => void;
+    handleChangeExpires: (value: inputT) => void;
+    handleChangeCvv: (value: inputT) => void;
     setFormTouched: (value: formTouchedT) => void;
     formTouched: formTouchedT;
 }
@@ -32,6 +33,16 @@ export const CardForm = (props: PropTypes) => {
     const watchName = useWatch<inputT>({
         control,
         name: 'name',
+        defaultValue: null,
+    });
+    const watchExpires = useWatch<inputT>({
+        control,
+        name: 'expires',
+        defaultValue: null,
+    });
+    const watchCvv = useWatch<inputT>({
+        control,
+        name: 'cvv',
         defaultValue: null,
     });
 
@@ -51,7 +62,7 @@ export const CardForm = (props: PropTypes) => {
         console.log(values);
     };
 
-    const validateField = (value: string) => {
+    const validateName = (value: string) => {
         if (!/^[a-zA-Z\s]+$/.test(value)) {
             return 'Only alphanumeric characters accepted';
         }
@@ -78,6 +89,18 @@ export const CardForm = (props: PropTypes) => {
         }
     }, [watchName]);
 
+    useEffect(() => {
+        if (formState.dirtyFields.expires) {
+            props.handleChangeExpires(watchExpires);
+        }
+    }, [watchExpires]);
+
+    useEffect(() => {
+        if (formState.dirtyFields.cvv) {
+            props.handleChangeCvv(watchCvv);
+        }
+    }, [watchCvv]);
+
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
             <Box my={10} textAlign="left">
@@ -100,7 +123,7 @@ export const CardForm = (props: PropTypes) => {
                             variant="flushed"
                             name="name"
                             placeholder="Cardholder name"
-                            ref={register({ validate: validateField })}
+                            ref={register({ validate: validateName })}
                             focusBorderColor="#B794F4"
                             onFocus={onFormFieldFocus}
                         />
@@ -110,18 +133,17 @@ export const CardForm = (props: PropTypes) => {
                     </FormControl>
                     <Flex>
                         <Box w="170px" h="10">
-                            <FormControl mt={6} isInvalid={errors.expiration}>
+                            <FormControl mt={6} isInvalid={errors.expires}>
                                 <Input
                                     variant="flushed"
-                                    name="expiration"
+                                    name="expires"
                                     placeholder="Expiration date"
-                                    ref={register({ validate: validateField })}
+                                    ref={register}
                                     focusBorderColor="#B794F4"
                                     onFocus={onFormFieldFocus}
                                 />
                                 <FormErrorMessage>
-                                    {errors.expiration &&
-                                        errors.expiration.message}
+                                    {errors.expires && errors.expires.message}
                                 </FormErrorMessage>
                             </FormControl>
                         </Box>
@@ -132,7 +154,7 @@ export const CardForm = (props: PropTypes) => {
                                     variant="flushed"
                                     name="cvv"
                                     placeholder="CVV"
-                                    ref={register({ validate: validateField })}
+                                    ref={register({ validate: validateName })}
                                     focusBorderColor="#B794F4"
                                     onFocus={onCvvFieldFocus}
                                 />
