@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CardForm } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
 import { formatString } from 'common/utils';
-import { animated as a, config, useSpring } from 'react-spring';
+import { animated as a, useSpring } from 'react-spring';
 import { Card } from './Card';
 import { inputT } from './interfaces';
 

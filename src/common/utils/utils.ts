@@ -5,14 +5,13 @@ export const formatString = (value: string) => {
 
     if (hashes >= 0) {
         const numberWithHashes = strippedValue + '#'.repeat(hashes);
-        const numberWithSpaces = `${numberWithHashes.substr(
+        return `${numberWithHashes.substr(
             0,
             4
         )} ${numberWithHashes.substr(4, 4)} ${numberWithHashes.substr(
             8,
             4
         )} ${numberWithHashes.substr(12, 4)}`;
-        return numberWithSpaces;
     }
     return false;
 };

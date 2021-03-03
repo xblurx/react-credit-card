@@ -22,7 +22,7 @@ interface PropTypes {
 }
 export const CardForm = (props: PropTypes) => {
     const { handleSubmit, errors, register, control, formState } = useForm({
-        mode: 'onChange',
+        mode: 'onBlur',
         reValidateMode: 'onSubmit',
     });
     const watchNumber = useWatch<inputT>({
@@ -51,7 +51,6 @@ export const CardForm = (props: PropTypes) => {
             props.setFormTouched('front');
         }
     };
-
     const onCvvFieldFocus = () => {
         if (props.formTouched !== 'back') {
             props.setFormTouched('back');
@@ -70,10 +69,8 @@ export const CardForm = (props: PropTypes) => {
 
     const validateNumber = (value: string) => {
         const strippedValue = value.replace(/\s/g, '');
-        if (!/^\d*$/.test(strippedValue)) {
-            return 'Only digits accepted';
-        } else if (strippedValue.length > 16) {
-            return 'Card number must not exceed 16 digits';
+        if (!/^\d{16}$/.test(strippedValue)) {
+            return 'Please, enter a valid 16-digits length card number';
         }
     };
 
@@ -115,7 +112,7 @@ export const CardForm = (props: PropTypes) => {
                             onFocus={onFormFieldFocus}
                         />
                         <FormErrorMessage>
-                            {errors.number && errors.number.message}
+                            {errors.number?.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl mt={6} isInvalid={errors.name}>
@@ -128,7 +125,7 @@ export const CardForm = (props: PropTypes) => {
                             onFocus={onFormFieldFocus}
                         />
                         <FormErrorMessage>
-                            {errors.name && errors.name.message}
+                            {errors.name?.message}
                         </FormErrorMessage>
                     </FormControl>
                     <Flex>
@@ -143,7 +140,7 @@ export const CardForm = (props: PropTypes) => {
                                     onFocus={onFormFieldFocus}
                                 />
                                 <FormErrorMessage>
-                                    {errors.expires && errors.expires.message}
+                                    {errors.expires?.message}
                                 </FormErrorMessage>
                             </FormControl>
                         </Box>
@@ -154,12 +151,18 @@ export const CardForm = (props: PropTypes) => {
                                     variant="flushed"
                                     name="cvv"
                                     placeholder="CVV"
-                                    ref={register({ validate: validateName })}
+                                    ref={register({
+                                        pattern: {
+                                            value: /^\d{3}$/,
+                                            message:
+                                                'Please, enter 3-digit CVV',
+                                        },
+                                    })}
                                     focusBorderColor="#B794F4"
                                     onFocus={onCvvFieldFocus}
                                 />
                                 <FormErrorMessage>
-                                    {errors.cvv && errors.cvv.message}
+                                    {errors.cvv?.message}
                                 </FormErrorMessage>
                             </FormControl>
                         </Box>
