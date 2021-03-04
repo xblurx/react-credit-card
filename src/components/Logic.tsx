@@ -52,18 +52,16 @@ export const Logic = () => {
 
     return (
         <>
-            <div>
-                <a.div style={animationStyle}>
-                    <Card
-                        logo={MasterCardLogo}
-                        number={number}
-                        name={name}
-                        expires={expires}
-                        cvv={cvv}
-                        cardSide={formState}
-                    />
-                </a.div>
-            </div>
+            <a.div style={animationStyle}>
+                <Card
+                    logo={MasterCardLogo}
+                    number={number}
+                    name={name}
+                    expires={expires}
+                    cvv={cvv}
+                    cardSide={formState}
+                />
+            </a.div>
             <CardForm
                 handleChangeNumber={handleChangeNumber}
                 handleChangeName={handleChangeName}

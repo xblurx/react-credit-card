@@ -74,6 +74,13 @@ export const CardForm = (props: PropTypes) => {
         }
     };
 
+    const validateExpires = (value: string) => {
+        const pattern = /^(0[1-9]|1[1-9]|2[1-9]|3[0-1])\/(0[1-9]|1[0-2])$/;
+        if (!pattern.test(value)) {
+            return 'Please, enter correct expiration date';
+        }
+    };
+
     useEffect(() => {
         if (formState.dirtyFields.number) {
             props.handleChangeNumber(watchNumber);
@@ -81,20 +88,26 @@ export const CardForm = (props: PropTypes) => {
     }, [watchNumber]);
 
     useEffect(() => {
-        if (formState.dirtyFields.name) {
+        if (watchName) {
             props.handleChangeName(watchName);
+        } else {
+            props.handleChangeName('CARDHOLDER');
         }
     }, [watchName]);
 
     useEffect(() => {
-        if (formState.dirtyFields.expires) {
+        if (watchExpires) {
             props.handleChangeExpires(watchExpires);
+        } else {
+            props.handleChangeExpires('03/77');
         }
     }, [watchExpires]);
 
     useEffect(() => {
-        if (formState.dirtyFields.cvv) {
+        if (watchCvv) {
             props.handleChangeCvv(watchCvv);
+        } else {
+            props.handleChangeCvv('***');
         }
     }, [watchCvv]);
 
@@ -135,7 +148,9 @@ export const CardForm = (props: PropTypes) => {
                                     variant="flushed"
                                     name="expires"
                                     placeholder="Expiration date"
-                                    ref={register}
+                                    ref={register({
+                                        validate: validateExpires,
+                                    })}
                                     focusBorderColor="#B794F4"
                                     onFocus={onFormFieldFocus}
                                 />
