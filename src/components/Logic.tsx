@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CardForm } from './CardForm';
-import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
-import { formatExpiryString, formatNumberString } from 'common/utils';
-import { animated as a, config, useSpring } from 'react-spring';
+import {
+    figureCardType,
+    formatExpiryString,
+    formatNumberString,
+} from 'common/utils';
+import { animated as a, useSpring } from 'react-spring';
 import { Card } from './Card';
 import { inputT } from './interfaces';
 
@@ -10,6 +13,7 @@ export type formTouchedT = 'notTouched' | 'front' | 'back';
 
 export const Logic = () => {
     const [number, setNumber] = useState('#### #### #### ####');
+    const [cardType, setCardType] = useState('');
     const [name, setName] = useState('CARDHOLDER');
     const [expires, setExpires] = useState('03/77');
     const [cvv, setCvv] = useState('***');
@@ -31,6 +35,12 @@ export const Logic = () => {
 
     const handleChangeNumber = (value: inputT) => {
         if (value !== null) {
+            const cardType = figureCardType(value);
+            console.log(`Logic cardType: ${cardType}`);
+            if (cardType) {
+                setCardType(cardType);
+            }
+
             const formattedNumber = formatNumberString(value);
             if (formattedNumber) {
                 setNumber(formattedNumber);
@@ -56,15 +66,11 @@ export const Logic = () => {
         }
     };
 
-    useEffect(() => {
-        console.log(number);
-    }, [number]);
-
     return (
         <>
             <a.div style={animationStyle}>
                 <Card
-                    logo={MasterCardLogo}
+                    cardType={cardType}
                     number={number}
                     name={name}
                     expires={expires}

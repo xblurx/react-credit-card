@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text } from '@chakra-ui/react';
+import { Image, Text, Box } from '@chakra-ui/react';
 import {
     CardHolder,
     CardInfo,
@@ -11,6 +11,10 @@ import {
 import { CCPropType, LogoPropType } from './interfaces';
 
 const Logo = (props: LogoPropType) => {
+    if (!props.logo) {
+        return <Box boxSize="80px" />;
+    }
+
     return (
         <CardLogo>
             <Image src={props.logo} alt="Card logo" boxSize="80px" />
@@ -18,7 +22,7 @@ const Logo = (props: LogoPropType) => {
     );
 };
 
-export const CardDisplay = (props: Omit<CCPropType, 'cvv'>) => {
+export const CardDisplay = (props: Omit<CCPropType, 'cvv' | 'cardType'>) => {
     return (
         <CardWrapper>
             <Logo logo={props.logo} />

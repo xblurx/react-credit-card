@@ -4,9 +4,11 @@ import { CardDisplay } from './CardDisplay';
 import { BackCardDisplay } from './BackCardDisplay';
 import { CCPropType } from './interfaces';
 import { GlobalCardWrapper } from 'styled/CreditCardSC';
+import { figureCardLogo } from 'common/utils';
 
-export const Card = (props: CCPropType) => {
-    const { logo, number, name, expires, cvv, cardSide } = props;
+export const Card = (props: Omit<CCPropType, 'logo'>) => {
+    const { number, name, expires, cvv, cardSide, cardType } = props;
+    const logo = figureCardLogo(cardType);
     const flipped = cardSide === 'back';
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
