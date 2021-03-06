@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import {
     Box,
+    Text,
     Button,
     Flex,
     FormControl,
@@ -75,7 +76,7 @@ export const CardForm = (props: PropTypes) => {
     };
 
     const validateExpires = (value: string) => {
-        const pattern = /^(0[1-9]|1[1-9]|2[1-9]|3[0-1])\/(0[1-9]|1[0-2])$/;
+        const pattern = /^(0[1-9]|1[0-2])\/?(\d{2})$/;
         if (!pattern.test(value)) {
             return 'Please, enter correct expiration date';
         }
@@ -113,6 +114,17 @@ export const CardForm = (props: PropTypes) => {
 
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">
+            <Box textAlign="center">
+                <Text
+                    mt={3}
+                    bgGradient="linear(to-l, #7928CA,#FF0080)"
+                    bgClip="text"
+                    fontSize="20px"
+                    fontWeight="bold"
+                >
+                    Cardplay
+                </Text>
+            </Box>
             <Box my={10} textAlign="left">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isInvalid={errors.number}>

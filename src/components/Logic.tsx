@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CardForm } from './CardForm';
 import MasterCardLogo from 'common/assets/mc_vrt_pos.svg';
-import { formatString } from 'common/utils';
-import { animated as a, useSpring } from 'react-spring';
+import { formatExpiryString, formatNumberString } from 'common/utils';
+import { animated as a, config, useSpring } from 'react-spring';
 import { Card } from './Card';
 import { inputT } from './interfaces';
 
@@ -15,16 +15,23 @@ export const Logic = () => {
     const [cvv, setCvv] = useState('***');
     const [formState, setFormState] = useState<formTouchedT>('notTouched');
 
+    const aConfig = { mass: 5, tension: 500, friction: 80 };
     const animationStyle = useSpring({
         transform:
             formState === 'notTouched' ? 'translateY(-200px)' : 'translateY(0)',
         opacity: formState !== 'notTouched' ? 1 : 0,
-        config: { mass: 5, tension: 500, friction: 80 },
+        config: aConfig,
+    });
+
+    const formAnimStyle = useSpring({
+        transform:
+            formState === 'notTouched' ? 'translateY(-100px)' : 'translateY(0)',
+        config: aConfig,
     });
 
     const handleChangeNumber = (value: inputT) => {
         if (value !== null) {
-            const formattedNumber = formatString(value);
+            const formattedNumber = formatNumberString(value);
             if (formattedNumber) {
                 setNumber(formattedNumber);
             }
@@ -37,7 +44,10 @@ export const Logic = () => {
     };
     const handleChangeExpires = (value: inputT) => {
         if (value !== null) {
-            setExpires(value);
+            const formattedExpires = formatExpiryString(value);
+            if (formattedExpires) {
+                setExpires(formattedExpires);
+            }
         }
     };
     const handleChangeCvv = (value: inputT) => {
@@ -62,14 +72,16 @@ export const Logic = () => {
                     cardSide={formState}
                 />
             </a.div>
-            <CardForm
-                handleChangeNumber={handleChangeNumber}
-                handleChangeName={handleChangeName}
-                handleChangeExpires={handleChangeExpires}
-                handleChangeCvv={handleChangeCvv}
-                setFormTouched={setFormState}
-                formTouched={formState}
-            />
+            <a.div style={formAnimStyle}>
+                <CardForm
+                    handleChangeNumber={handleChangeNumber}
+                    handleChangeName={handleChangeName}
+                    handleChangeExpires={handleChangeExpires}
+                    handleChangeCvv={handleChangeCvv}
+                    setFormTouched={setFormState}
+                    formTouched={formState}
+                />
+            </a.div>
         </>
     );
 };
