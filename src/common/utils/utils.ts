@@ -1,5 +1,6 @@
 import logoMC from 'common/assets/mc_vrt_pos.svg';
 import logoVisa from 'common/assets/visa.svg';
+import { useEffect, useRef } from 'react';
 
 export const formatNumberString = (value: string) => {
     const STRING_LENGTH = 16;
@@ -24,25 +25,31 @@ export const formatExpiryString = (value: string) => {
     return false;
 };
 
-export const figureCardType = (number: string) => {
+export const figureCardType = (number: string): false | string => {
     if (!number) {
         return false;
     }
     const creditCardType = require('credit-card-type');
     const typeObject = creditCardType(number);
-    // console.log(`figureCardType: ${type[0]}`);
     if (!typeObject.length) return false;
     return typeObject[0].type;
 };
 
-export const figureCardLogo = (cardType: string) => {
-    let logo: any;
+export const figureCardLogo = (cardType: string): undefined | string => {
     switch (cardType) {
         case 'mastercard':
             return logoMC;
         case 'visa':
             return logoVisa;
         default:
-            return false;
+            return undefined;
     }
+};
+
+export const usePrevious = (value: any) => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 };

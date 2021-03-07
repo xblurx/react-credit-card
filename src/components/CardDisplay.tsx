@@ -1,39 +1,28 @@
 import React from 'react';
-import { Image, Text, Box } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import {
     CardHolder,
     CardInfo,
     CardInfoExpiry,
-    CardLogo,
     CardNumber,
     CardWrapper,
 } from 'styled/CreditCardSC';
-import { CCPropType, LogoPropType } from './interfaces';
+import { CCPropType } from './interfaces';
+import { Logo } from './Logo';
 
-const Logo = (props: LogoPropType) => {
-    if (!props.logo) {
-        return <Box boxSize="80px" />;
-    }
-
-    return (
-        <CardLogo>
-            <Image src={props.logo} alt="Card logo" boxSize="80px" />
-        </CardLogo>
-    );
-};
-
-export const CardDisplay = (props: Omit<CCPropType, 'cvv' | 'cardType'>) => {
+export const CardDisplay = (props: Omit<CCPropType, 'cvv'>) => {
+    const { number, cardType, name, expires } = props;
     return (
         <CardWrapper>
-            <Logo logo={props.logo} />
-            <CardNumber>{props.number}</CardNumber>
+            <Logo cardType={cardType} />
+            <CardNumber>{number}</CardNumber>
             <CardInfo>
                 <CardHolder>
-                    <Text fontSize="xl">{props.name}</Text>
+                    <Text fontSize="xl">{name}</Text>
                 </CardHolder>
                 <CardInfoExpiry>
                     <Text fontSize="xs">VALID THRU</Text>
-                    <Text fontSize="lg">{props.expires}</Text>
+                    <Text fontSize="lg">{expires}</Text>
                 </CardInfoExpiry>
             </CardInfo>
         </CardWrapper>

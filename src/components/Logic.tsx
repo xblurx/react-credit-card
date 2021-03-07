@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CardForm } from './CardForm';
-import {
-    figureCardType,
-    formatExpiryString,
-    formatNumberString,
-} from 'common/utils';
+import { figureCardType, formatExpiryString, formatNumberString } from 'common/utils';
 import { animated as a, useSpring } from 'react-spring';
 import { Card } from './Card';
 import { inputT } from './interfaces';
