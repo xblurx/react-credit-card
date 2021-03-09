@@ -1,7 +1,8 @@
+import { useEffect, useRef } from 'react';
 import logoMC from 'common/assets/mc_vrt_pos.svg';
 import logoVisa from 'common/assets/visa.svg';
 import logoEmpty from 'common/assets/empty.svg';
-import { useEffect, useRef } from 'react';
+
 
 export const formatNumberString = (value: string) => {
     const STRING_LENGTH = 16;
@@ -26,7 +27,7 @@ export const formatExpiryString = (value: string) => {
     return false;
 };
 
-export const figureCardType = (number: string): false | string => {
+export const figureCardType = (number: string): string | false => {
     if (!number) {
         return false;
     }
@@ -36,7 +37,7 @@ export const figureCardType = (number: string): false | string => {
     return typeObject[0].type;
 };
 
-export const figureCardLogo = (cardType: string): undefined | string => {
+export const figureCardLogo = (cardType: string): string => {
     switch (cardType) {
         case 'mastercard':
             return logoMC;
