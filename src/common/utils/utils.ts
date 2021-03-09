@@ -1,5 +1,6 @@
 import logoMC from 'common/assets/mc_vrt_pos.svg';
 import logoVisa from 'common/assets/visa.svg';
+import logoEmpty from 'common/assets/empty.svg';
 import { useEffect, useRef } from 'react';
 
 export const formatNumberString = (value: string) => {
@@ -42,7 +43,7 @@ export const figureCardLogo = (cardType: string): undefined | string => {
         case 'visa':
             return logoVisa;
         default:
-            return undefined;
+            return logoEmpty;
     }
 };
 

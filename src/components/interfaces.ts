@@ -1,7 +1,7 @@
 import { formTouchedT } from './Logic';
 
 export interface CCPropType {
-    cardType: string;
+    cardType: string | false;
     number: string;
     name: string;
     expires: string;
