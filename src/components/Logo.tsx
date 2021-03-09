@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Image } from '@chakra-ui/react';
 import { animated as a, config, useSpring } from 'react-spring';
 import { CardLogo } from 'styled/CreditCardSC';
@@ -11,13 +11,23 @@ interface LogoPropType {
 
 export const Logo = (props: LogoPropType) => {
     const { cardType } = props;
-    const [logo, setLogo] = useState(logoEmpty);
+    const [logo, setLogo] = useState<string | null>(null);
     const [opacity, setOpacity] = useSpring(() => ({
         opacity: 0,
     }));
     const [transform, setTransform] = useSpring(() => ({
         transform: 'translateX(-40px)',
     }));
+
+    const LogoImage = useCallback(
+        () => (
+            <>
+                {!logo && <Box boxSize="80px" />}
+                {logo && <Image src={logo} boxSize="80px" />}
+            </>
+        ),
+        [logo]
+    );
 
     useEffect(() => {
         if (cardType) {
@@ -36,7 +46,7 @@ export const Logo = (props: LogoPropType) => {
     return (
         <a.div style={{ ...opacity, ...transform }}>
             <CardLogo>
-                <Image src={logo} alt="Card logo" boxSize="80px" />
+                <LogoImage />
             </CardLogo>
         </a.div>
     );
