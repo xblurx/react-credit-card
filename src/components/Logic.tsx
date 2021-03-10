@@ -36,11 +36,8 @@ export const Logic = () => {
     const handleChangeNumber = (value: inputT) => {
         if (value !== null) {
             const cardType = figureCardType(value);
-            console.log(`Logic cardType: ${cardType}`);
-            // if (cardType) {
+            // console.log(`Logic cardType: ${cardType}`);
             setCardType(cardType);
-            // }
-
             const formattedNumber = formatNumberString(value);
             if (formattedNumber) {
                 setNumber(formattedNumber);

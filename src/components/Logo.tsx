@@ -20,11 +20,7 @@ export const Logo = (props: LogoPropType) => {
     }));
 
     const LogoImage = useCallback(() => {
-        return (
-            <>
-                <Image src={logo} alt="Card logo" boxSize="80px" />
-            </>
-        );
+        return <Image src={logo} alt="Card logo" boxSize="80px" />;
     }, [logo]);
 
     useEffect(() => {
@@ -34,8 +30,8 @@ export const Logo = (props: LogoPropType) => {
             setTransform({ transform: 'translateX(0px)' });
             setOpacity({ opacity: 1 });
         } else {
-            setOpacity({ opacity: 0 });
             setTransform({ transform: 'translateX(-40px)' });
+            setOpacity({ opacity: 0 });
         }
     }, [cardType]);
 
