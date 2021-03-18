@@ -1,6 +1,6 @@
 import { formTouchedT } from './Logic';
 
-export interface CCPropType {
+export interface CardPropType {
     cardType: string | false;
     number: string;
     name: string;

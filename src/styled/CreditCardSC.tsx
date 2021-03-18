@@ -1,4 +1,28 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+interface PropTypes {
+    cardType: string | false;
+}
+
+const animateBgVisa = keyframes`
+  from {
+    background-position: 0 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+`;
+
+const animateBgMC = keyframes`
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }`;
 
 export const CardWrapper = styled.div`
     position: absolute;
@@ -10,14 +34,17 @@ export const CardWrapper = styled.div`
     padding: 25px;
     border-radius: 15px;
     color: white;
+    background-size: 400% 400%;
     background-image: linear-gradient(
-        to right bottom,
-        #fd696b,
-        #fa616e,
-        #f65871,
-        #f15075,
-        #ec4879
+        45deg,
+        #ee7752,
+        #e73c7e,
+        #23a6d5,
+        #23d5ab
     );
+    animation: ${(props: PropTypes) =>
+            props.cardType === 'visa' ? animateBgVisa : animateBgMC}
+        1s ease;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 `;
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { animated as a, useSpring } from 'react-spring';
 import { CardDisplay } from './CardDisplay';
 import { BackCardDisplay } from './BackCardDisplay';
-import { CCPropType } from './interfaces';
+import { CardPropType } from './interfaces';
 import { GlobalCardWrapper } from 'styled/CreditCardSC';
 
-export const Card = (props: Omit<CCPropType, 'logo'>) => {
+export const Card = (props: Omit<CardPropType, 'logo'>) => {
     const { number, name, expires, cvv, cardSide, cardType } = props;
     const flipped = cardSide === 'back';
     const { transform, opacity } = useSpring({
