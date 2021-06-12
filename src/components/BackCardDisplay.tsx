@@ -1,5 +1,11 @@
 import React from 'react';
-import { BackCardWrapper, CardBackContent, CardBackCVV, CardBlackLine, CardSecret } from 'styled/CreditCardBackSC';
+import {
+    BackCardWrapper,
+    CardBackContent,
+    CardBackCVV,
+    CardBlackLine,
+    CardSecret,
+} from 'styled/CreditCardBackSC';
 
 interface PropTypes {
     cvv: string;

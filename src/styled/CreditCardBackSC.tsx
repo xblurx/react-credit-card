@@ -39,6 +39,7 @@ export const CardSecret = styled.div`
     padding: 6px 19px;
     background-color: #fff;
     position: relative;
+
     &:before {
         content: '';
         position: absolute;

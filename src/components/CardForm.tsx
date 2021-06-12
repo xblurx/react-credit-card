@@ -21,6 +21,7 @@ interface PropTypes {
     setFormTouched: (value: formTouchedT) => void;
     formTouched: formTouchedT;
 }
+
 export const CardForm = (props: PropTypes) => {
     const { handleSubmit, errors, register, control, formState } = useForm({
         mode: 'onBlur',

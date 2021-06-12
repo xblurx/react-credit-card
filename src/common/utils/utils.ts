@@ -3,7 +3,6 @@ import logoMC from 'common/assets/mc_vrt_pos.svg';
 import logoVisa from 'common/assets/visa.svg';
 import logoEmpty from 'common/assets/empty.svg';
 
-
 export const formatNumberString = (value: string) => {
     const STRING_LENGTH = 16;
     const strippedValue = value.replace(/\s/g, '');
@@ -37,14 +36,14 @@ export const figureCardType = (number: string): string | false => {
     return typeObject[0].type;
 };
 
-export const figureCardLogo = (cardType: string): string => {
+export const figureCardLogo = (cardType: string | boolean): string => {
     switch (cardType) {
         case 'mastercard':
             return logoMC;
         case 'visa':
             return logoVisa;
         default:
-            return logoEmpty;
+            return '';
     }
 };
 
