@@ -23,6 +23,14 @@ interface PropTypes {
 }
 
 export const CardForm = (props: PropTypes) => {
+    const {
+        formTouched,
+        setFormTouched,
+        handleChangeNumber,
+        handleChangeName,
+        handleChangeExpires,
+        handleChangeCvv,
+    } = props;
     const { handleSubmit, errors, register, control, formState } = useForm({
         mode: 'onBlur',
         reValidateMode: 'onSubmit',
@@ -49,13 +57,13 @@ export const CardForm = (props: PropTypes) => {
     });
 
     const onFormFieldFocus = () => {
-        if (props.formTouched !== 'front') {
-            props.setFormTouched('front');
+        if (formTouched !== 'front') {
+            setFormTouched('front');
         }
     };
     const onCvvFieldFocus = () => {
-        if (props.formTouched !== 'back') {
-            props.setFormTouched('back');
+        if (formTouched !== 'back') {
+            setFormTouched('back');
         }
     };
 
@@ -85,33 +93,33 @@ export const CardForm = (props: PropTypes) => {
 
     useEffect(() => {
         if (formState.dirtyFields.number) {
-            props.handleChangeNumber(watchNumber);
+            handleChangeNumber(watchNumber);
         }
-    }, [watchNumber]);
+    }, [formState.dirtyFields.number, watchNumber, handleChangeNumber]);
 
     useEffect(() => {
         if (watchName) {
-            props.handleChangeName(watchName);
+            handleChangeName(watchName);
         } else {
-            props.handleChangeName('CARDHOLDER');
+            handleChangeName('CARDHOLDER');
         }
-    }, [watchName]);
+    }, [watchName, handleChangeName]);
 
     useEffect(() => {
         if (watchExpires) {
-            props.handleChangeExpires(watchExpires);
+            handleChangeExpires(watchExpires);
         } else {
-            props.handleChangeExpires('03/77');
+            handleChangeExpires('03/77');
         }
-    }, [watchExpires]);
+    }, [watchExpires, handleChangeExpires]);
 
     useEffect(() => {
         if (watchCvv) {
-            props.handleChangeCvv(watchCvv);
+            handleChangeCvv(watchCvv);
         } else {
-            props.handleChangeCvv('***');
+            handleChangeCvv('***');
         }
-    }, [watchCvv]);
+    }, [watchCvv, handleChangeCvv]);
 
     return (
         <Box padding="20px 70px 20px" width="500px" maxWidth="700px">

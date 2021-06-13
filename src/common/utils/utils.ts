@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import logoMC from 'common/assets/mc_vrt_pos.svg';
 import logoVisa from 'common/assets/visa.svg';
-import logoEmpty from 'common/assets/empty.svg';
+import creditCardType from 'credit-card-type';
 
 export const formatNumberString = (value: string) => {
     const STRING_LENGTH = 16;
@@ -30,7 +30,6 @@ export const figureCardType = (number: string): string | false => {
     if (!number) {
         return false;
     }
-    const creditCardType = require('credit-card-type');
     const typeObject = creditCardType(number);
     if (!typeObject.length) return false;
     return typeObject[0].type;

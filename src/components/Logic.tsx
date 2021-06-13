@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CardForm } from './CardForm';
 import {
     figureCardType,
@@ -33,35 +33,34 @@ export const Logic = () => {
         config: aConfig,
     });
 
-    const handleChangeNumber = (value: inputT) => {
+    const handleChangeNumber = useCallback((value: inputT) => {
         if (value !== null) {
             const cardType = figureCardType(value);
-            // console.log(`Logic cardType: ${cardType}`);
             setCardType(cardType);
             const formattedNumber = formatNumberString(value);
             if (formattedNumber) {
                 setNumber(formattedNumber);
             }
         }
-    };
-    const handleChangeName = (value: inputT) => {
+    }, []);
+    const handleChangeName = useCallback((value: inputT) => {
         if (value !== null) {
             setName(value.toUpperCase());
         }
-    };
-    const handleChangeExpires = (value: inputT) => {
+    }, []);
+    const handleChangeExpires = useCallback((value: inputT) => {
         if (value !== null) {
             const formattedExpires = formatExpiryString(value);
             if (formattedExpires) {
                 setExpires(formattedExpires);
             }
         }
-    };
-    const handleChangeCvv = (value: inputT) => {
+    }, []);
+    const handleChangeCvv = useCallback((value: inputT) => {
         if (value !== null) {
             setCvv(value);
         }
-    };
+    }, []);
 
     return (
         <>
