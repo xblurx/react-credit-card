@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
-import logoMC from 'common/assets/mc_vrt_pos.svg';
-import logoVisa from 'common/assets/visa.svg';
 import creditCardType from 'credit-card-type';
+import { ECardIssuer, TCardIssuer } from 'components/Logic';
 
-export const formatNumberString = (value: string) => {
+export const formatNumberString = (value: string): string => {
     const STRING_LENGTH = 16;
     const strippedValue = value.replace(/\s/g, '');
     const hashes = STRING_LENGTH - strippedValue.length;
@@ -15,7 +14,7 @@ export const formatNumberString = (value: string) => {
             4
         )} ${numberWithHashes.substr(8, 4)} ${numberWithHashes.substr(12, 4)}`;
     }
-    return false;
+    return '';
 };
 
 export const formatExpiryString = (value: string) => {
@@ -26,21 +25,21 @@ export const formatExpiryString = (value: string) => {
     return false;
 };
 
-export const figureCardType = (number: string): string | false => {
+export const getCardIssuer = (number: string): TCardIssuer | null => {
     if (!number) {
-        return false;
+        return null;
     }
     const typeObject = creditCardType(number);
-    if (!typeObject.length) return false;
-    return typeObject[0].type;
+    if (!typeObject.length) return null;
+    return typeObject[0].type as TCardIssuer;
 };
 
-export const figureCardLogo = (cardType: string | boolean): string => {
+export const getCardLogo = (cardType: TCardIssuer | null): string => {
     switch (cardType) {
-        case 'mastercard':
-            return logoMC;
-        case 'visa':
-            return logoVisa;
+        case ECardIssuer.MASTERCARD:
+            return '/img/mc.svg';
+        case ECardIssuer.VISA:
+            return '/img/visa.svg';
         default:
             return '';
     }

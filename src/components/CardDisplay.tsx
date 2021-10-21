@@ -7,15 +7,15 @@ import {
     CardNumber,
     CardWrapper,
 } from 'styled/CreditCardSC';
-import { CardPropType } from './interfaces';
+import { ICard } from './interfaces';
 import { Logo } from './Logo';
 
-export const CardDisplay = (props: Omit<CardPropType, 'cvv'>) => {
-    const { number, cardType, name, expires } = props;
+export const CardDisplay = (props: Omit<ICard, 'cvv'>) => {
+    const { number, name, expires, logo } = props;
 
     return (
         <CardWrapper>
-            <Logo cardType={cardType} />
+            <Logo logo={logo} />
             <CardNumber>{number}</CardNumber>
             <CardInfo>
                 <CardHolder>

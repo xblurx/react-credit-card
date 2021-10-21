@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Image } from '@chakra-ui/react';
+import * as React from 'react';
+import { Image, Box } from '@chakra-ui/react';
 import { animated as a, useSpring } from 'react-spring';
 import { CardLogo } from 'styled/CreditCardSC';
-import { figureCardLogo } from 'common/utils';
 import logoEmpty from 'common/assets/empty.svg';
 
-interface LogoPropType {
-    cardType: string | false;
+interface ILogoProps {
+    logo: string;
 }
 
 const ImageContainer = (props: any) => {
     return props.src ? (
-        <Image src={props.src} alt="card logo" fallbackSrc={logoEmpty} boxSize="80px" />
+        <Image
+            src={props.src}
+            alt="card logo"
+            fallbackSrc={logoEmpty}
+            boxSize="80px"
+        />
     ) : (
         <Box boxSize="80px" />
     );
 };
 
-export const Logo = (props: LogoPropType) => {
-    const { cardType } = props;
-    const [logo, setLogo] = useState<string | boolean>('');
+export const Logo = ({ logo }: ILogoProps) => {
     const { opacity, transform } = useSpring({
         opacity: logo ? 0 : 1,
         transform: `translateX(${logo ? 0 : -40}px)`,
     });
-
-    useEffect(() => {
-        const logoUpdated = figureCardLogo(cardType);
-        setLogo(logoUpdated);
-    }, [cardType]);
 
     return (
         <a.div

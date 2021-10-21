@@ -2,11 +2,11 @@ import React from 'react';
 import { animated as a, useSpring } from 'react-spring';
 import { CardDisplay } from './CardDisplay';
 import { BackCardDisplay } from './BackCardDisplay';
-import { CardPropType } from './interfaces';
+import { ICard } from './interfaces';
 import { GlobalCardWrapper } from 'styled/CreditCardSC';
 
-export const Card = (props: Omit<CardPropType, 'logo'>) => {
-    const { number, name, expires, cvv, cardSide, cardType } = props;
+export const Card = (props: ICard) => {
+    const { number, name, expires, cvv, cardSide, logo } = props;
     const flipped = cardSide === 'back';
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
@@ -23,7 +23,7 @@ export const Card = (props: Omit<CardPropType, 'logo'>) => {
                 }}
             >
                 <CardDisplay
-                    cardType={cardType}
+                    logo={logo}
                     number={number}
                     name={name}
                     expires={expires}
