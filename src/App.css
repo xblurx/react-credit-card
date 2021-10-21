@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'Kredit';
-    src:  url('common/fonts/kreditFront.woff') format('woff');
+    src: url('common/fonts/kredit.woff') format('woff');
 }
 
 .card__number {

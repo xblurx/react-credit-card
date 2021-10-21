@@ -6,7 +6,7 @@ import { ICard } from './interfaces';
 import { GlobalCardWrapper } from 'styled/CreditCardSC';
 
 export const Card = (props: ICard) => {
-    const { number, name, expires, cvv, cardSide, logo } = props;
+    const { number, name, expires, cvv, cardSide } = props;
     const flipped = cardSide === 'back';
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
@@ -23,7 +23,6 @@ export const Card = (props: ICard) => {
                 }}
             >
                 <CardDisplay
-                    logo={logo}
                     number={number}
                     name={name}
                     expires={expires}

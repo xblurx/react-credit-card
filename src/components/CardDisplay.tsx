@@ -11,11 +11,11 @@ import { ICard } from './interfaces';
 import { Logo } from './Logo';
 
 export const CardDisplay = (props: Omit<ICard, 'cvv'>) => {
-    const { number, name, expires, logo } = props;
+    const { number, name, expires } = props;
 
     return (
         <CardWrapper>
-            <Logo logo={logo} />
+            <Logo number={number} />
             <CardNumber>{number}</CardNumber>
             <CardInfo>
                 <CardHolder>

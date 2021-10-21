@@ -10,16 +10,16 @@ import {
     Input,
     Spacer,
 } from '@chakra-ui/react';
-import { TFormTouched } from './Logic';
-import { TInput } from './interfaces';
+import { formTouchedT } from './Logic';
+import { inputT } from './interfaces';
 
 interface PropTypes {
-    handleChangeNumber: (value: TInput) => void;
-    handleChangeName: (value: TInput) => void;
-    handleChangeExpires: (value: TInput) => void;
-    handleChangeCvv: (value: TInput) => void;
-    setFormTouched: (value: TFormTouched) => void;
-    formTouched: TFormTouched;
+    handleChangeNumber: (value: inputT) => void;
+    handleChangeName: (value: inputT) => void;
+    handleChangeExpires: (value: inputT) => void;
+    handleChangeCvv: (value: inputT) => void;
+    setFormTouched: (value: formTouchedT) => void;
+    formTouched: formTouchedT;
 }
 
 export const CardForm = (props: PropTypes) => {
@@ -35,22 +35,22 @@ export const CardForm = (props: PropTypes) => {
         mode: 'onBlur',
         reValidateMode: 'onSubmit',
     });
-    const watchNumber = useWatch<TInput>({
+    const watchNumber = useWatch<inputT>({
         control,
         name: 'number',
         defaultValue: null,
     });
-    const watchName = useWatch<TInput>({
+    const watchName = useWatch<inputT>({
         control,
         name: 'name',
         defaultValue: null,
     });
-    const watchExpires = useWatch<TInput>({
+    const watchExpires = useWatch<inputT>({
         control,
         name: 'expires',
         defaultValue: null,
     });
-    const watchCvv = useWatch<TInput>({
+    const watchCvv = useWatch<inputT>({
         control,
         name: 'cvv',
         defaultValue: null,
@@ -61,7 +61,6 @@ export const CardForm = (props: PropTypes) => {
             setFormTouched('front');
         }
     };
-
     const onCvvFieldFocus = () => {
         if (formTouched !== 'back') {
             setFormTouched('back');

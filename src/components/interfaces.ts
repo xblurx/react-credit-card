@@ -1,12 +1,11 @@
-import { TFormTouched } from './Logic';
+import { formTouchedT } from './Logic';
 
 export interface ICard {
-    logo: any;
     number: string;
     name: string;
     expires: string;
     cvv: string;
-    cardSide: TFormTouched;
+    cardSide: formTouchedT;
 }
 
-export type TInput = string | null;
+export type inputT = string | null;

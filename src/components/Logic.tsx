@@ -1,94 +1,64 @@
-import * as React from 'react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CardForm } from './CardForm';
-import {
-    getCardIssuer,
-    formatExpiryString,
-    formatNumberString,
-    getCardLogo,
-} from 'common/utils';
+import { formatExpiryString, formatNumberString } from 'common/utils';
 import { animated as a, useSpring } from 'react-spring';
 import { Card } from './Card';
-import { TInput } from './interfaces';
-// import mastercardImg from 'common/assets/mc_vrt_pos.svg';
-// import visaImg from 'common/assets/visa.svg';
+import { inputT } from './interfaces';
 
-export type TFormTouched = 'notTouched' | 'front' | 'back';
-export enum ECardIssuer {
-    'MASTERCARD' = 'mastercard',
-    'VISA' = 'visa',
-}
-export type TCardIssuer = `${ECardIssuer}`;
-
-// const preloadLogos = () => {
-//     const mastercard = (document.createElement('img').src = mastercardImg);
-//     const visa = (document.createElement('img').src = visaImg);
-//     return { mastercard, visa };
-// };
-// preloadLogos();
-
-const initialCardNumber = '#### #### #### ####';
+export type formTouchedT = 'notTouched' | 'front' | 'back';
+const animationConfig = { mass: 5, tension: 500, friction: 80 };
 
 export const Logic = () => {
-    const [number, setNumber] = useState(initialCardNumber);
-    const [name, setName] = useState<string>('CARDHOLDER');
-    const [expires, setExpires] = useState<string>('03/77');
-    const [cvv, setCvv] = useState<string>('***');
-    const [formState, setFormState] = useState<TFormTouched>('notTouched');
-    const [currentLogoSrc, setCurrentLogoSrc] = useState<string | null>(null);
+    const [number, setNumber] = useState('#### #### #### ####');
+    const [name, setName] = useState('CARDHOLDER');
+    const [expires, setExpires] = useState('03/77');
+    const [cvv, setCvv] = useState('***');
+    const [formState, setFormState] = useState<formTouchedT>('notTouched');
 
-    const aConfig = { mass: 5, tension: 500, friction: 80 };
-    const change = formState === 'notTouched';
-    const animationStyle = useSpring({
-        transform: change ? 'translateY(-200px)' : 'translateY(0)',
-        opacity: change ? 0 : 1,
-        config: aConfig,
+    const isFormChanged = formState === 'notTouched';
+    const cardAnimationStyle = useSpring({
+        transform: isFormChanged ? 'translateY(-200px)' : 'translateY(0)',
+        opacity: isFormChanged ? 0 : 1,
+        config: animationConfig,
     });
-    const formAnimStyle = useSpring({
+
+    const formAnimationStyle = useSpring({
         transform:
             formState === 'notTouched' ? 'translateY(-100px)' : 'translateY(0)',
-        config: aConfig,
+        config: animationConfig,
     });
 
-    const handleChangeNumber = useCallback((value: TInput) => {
-        if (!value) {
-            setNumber(initialCardNumber);
-            setCurrentLogoSrc(null);
-            return;
+    const handleChangeNumber = useCallback((value: inputT) => {
+        if (value !== null) {
+            const formattedNumber = formatNumberString(value);
+            if (formattedNumber) {
+                setNumber(formattedNumber);
+            }
         }
-
-        const cardLogo = getCardIssuer(value);
-        const formattedNumber = formatNumberString(value);
-
-        if (cardLogo) {
-            setCurrentLogoSrc(getCardLogo(cardLogo));
+    }, []);
+    const handleChangeName = useCallback((value: inputT) => {
+        if (value !== null) {
+            setName(value.toUpperCase());
         }
-
-        setNumber(formattedNumber);
     }, []);
-
-    const handleChangeName = useCallback((value: TInput) => {
-        !!value && setName(value.toUpperCase());
-    }, []);
-
-    const handleChangeExpires = useCallback((value: TInput) => {
-        if (!!value) {
+    const handleChangeExpires = useCallback((value: inputT) => {
+        if (value !== null) {
             const formattedExpires = formatExpiryString(value);
             if (formattedExpires) {
                 setExpires(formattedExpires);
             }
         }
     }, []);
-
-    const handleChangeCvv = useCallback((value: TInput) => {
-        !!value && setCvv(value);
+    const handleChangeCvv = useCallback((value: inputT) => {
+        if (value !== null) {
+            setCvv(value);
+        }
     }, []);
 
     return (
         <>
-            <a.div style={animationStyle}>
+            <a.div style={cardAnimationStyle}>
                 <Card
-                    logo={currentLogoSrc}
                     number={number}
                     name={name}
                     expires={expires}
@@ -96,7 +66,7 @@ export const Logic = () => {
                     cardSide={formState}
                 />
             </a.div>
-            <a.div style={formAnimStyle}>
+            <a.div style={formAnimationStyle}>
                 <CardForm
                     handleChangeNumber={handleChangeNumber}
                     handleChangeName={handleChangeName}
